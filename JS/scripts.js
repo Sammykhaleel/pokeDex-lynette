@@ -1,4 +1,5 @@
-var pokemonList 
-let name = [Squirtle, Butterfree, Vaporeon];
-let height = [7, 8, 10];
-let types = [water, bug, water];
+let pokemonList = [
+    {name: "Squirtle", height: 7, types: ["water", "slow"]},
+    {name: "Butterfree", height: 10, types: ["bug", "flying"]},
+    {name: "Vaporeon", height: 14, types: ["water", "speed"]}
+];
