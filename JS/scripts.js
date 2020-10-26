@@ -23,9 +23,26 @@ let pokemonRepository = (function () {
       return pokemonList;
     }
   
+    function addlistitem (pokemon){
+      let ul=document.querySelector(".pokemon-list"); 
+      let li=document.createElement("li");
+      let button=document.createElement("button");
+      button.innerText=pokemon.name;
+      button.classList.add("button")
+      li.appendChild(button);
+      ul.appendChild(li);
+      button.addEventListener("click",function(event){
+     showDetails(pokemon)
+      })
+    }
+
+    function showDetails(pokemon){
+      console.log(pokemon)
+    }
     return {
       add: add,
-      getAll: getAll
+      getAll: getAll,
+      addlistitem: addlistitem
     };
   })();
 
@@ -55,19 +72,6 @@ pokemonRepository.getAll().forEach(function(pokemon){
     } else {
       size = "This Is An Average Pokemon";
     }
-
-    document.write(
-      '<div class="box">' +
-        pokemon.name +
-        " (height: " +
-        pokemon.height +
-        ") " +
-        size +
-        color +
-        "<br>" +
-        pokemon.types +
-        "<br>" +
-        "</div>"
-    );
+    pokemonRepository.addlistitem(pokemon)
 })
   
