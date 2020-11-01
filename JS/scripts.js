@@ -27,22 +27,42 @@ let pokemonRepository = (function () {
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function(){
       console.log(pokemon);
-      showModal()
+      showModal(pokemon)
     })
     
   }
 
-  function showModal(){
+  function showModal(pokemon){
     let modalContainer=document.querySelector("#modal-container");
     let modal=document.createElement("div")
     modal.classList.add("modal")
     let closeButton=document.createElement("button")
     closeButton.classList.add("modal-close")
     closeButton.innerText="close"
+    closeButton.addEventListener("click", hideModal);
+    let name= document.createElement("h1");
+    name.innerText = pokemon.name;
+    let image = document.createElement("img");
+    image.classList.add("modal-img");
+    image.setAttribute("src", pokemon.imageUrl);
+    let height = document.createElement("p");
+    height.innerText = "height : " +pokemon.height;
+    let types= document.createElement("p");
+    types.innerText = "types : " + pokemon.types;
+
+    modal.appendChild(name);
+    modal.appendChild(image);
+    modal.appendChild(height);
+
+    modal.appendChild(types);
     modal.appendChild(closeButton)
     modalContainer.appendChild(modal)
-    modalContainer.classList.add("is-visiable")
+    modalContainer.classList.add("is-visible")
     console.log(modal)
+  }
+  function hideModal() {
+    let modalContainer = document.querySelector("#modal-container");
+    modalContainer.classList.remove("is-visible");
   }
   function loadList() {
     return fetch(apiUrl)
@@ -86,7 +106,8 @@ let pokemonRepository = (function () {
     addlistitem: addlistitem,
     loadList: loadList,
     loadDetails: loadDetails,
-    showModal:showModal
+    showModal:showModal,
+    hideModal:hideModal
   };
 })();
 
