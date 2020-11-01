@@ -27,10 +27,23 @@ let pokemonRepository = (function () {
   function showDetails(pokemon) {
     loadDetails(pokemon).then(function(){
       console.log(pokemon);
+      showModal()
     })
     
   }
 
+  function showModal(){
+    let modalContainer=document.querySelector("#modal-container");
+    let modal=document.createElement("div")
+    modal.classList.add("modal")
+    let closeButton=document.createElement("button")
+    closeButton.classList.add("modal-close")
+    closeButton.innerText="close"
+    modal.appendChild(closeButton)
+    modalContainer.appendChild(modal)
+    modalContainer.classList.add("is-visiable")
+    console.log(modal)
+  }
   function loadList() {
     return fetch(apiUrl)
       .then(function (response) {
@@ -72,7 +85,8 @@ let pokemonRepository = (function () {
     getAll: getAll,
     addlistitem: addlistitem,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    showModal:showModal
   };
 })();
 
