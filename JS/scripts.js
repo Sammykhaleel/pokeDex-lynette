@@ -34,6 +34,7 @@ let pokemonRepository = (function () {
 
   function showModal(pokemon){
     let modalContainer=document.querySelector("#modal-container");
+    modalContainer.innerHTML="";
     let modal=document.createElement("div")
     modal.classList.add("modal")
     let closeButton=document.createElement("button")
@@ -64,6 +65,25 @@ let pokemonRepository = (function () {
     let modalContainer = document.querySelector("#modal-container");
     modalContainer.classList.remove("is-visible");
   }
+
+  window.addEventListener("keydown", (e) => {
+    var $modalContainer = document.querySelector("#modal-container");
+    if (
+      e.key === "Escape" &&
+      $modalContainer.classList.contains("is-visible")
+    ) {
+      hideModal();
+    }
+  });
+  //hides modal if clicked outside of it
+  var $modalContainer = document.querySelector("#modal-container");
+  $modalContainer.addEventListener("click", (e) => {
+    var target = e.target;
+    if (target === $modalContainer) {
+      hideModal();
+    }
+  });
+  
   function loadList() {
     return fetch(apiUrl)
       .then(function (response) {
