@@ -19,7 +19,7 @@ let pokemonRepository = (function () {
         '<div class="card mt-5" style="width: 18rem; margin:13px;"></div>'
       );
       let image = $('<img class="card-img-top mx-auto" style="width:40%;" alt="...">');
-      let title = $('<h5 class="card-title">' + pokemon.name + "</h5>");
+      let title = $('<h5 class="card-title" style="color:white;">' + pokemon.name + "</h5>");
       image.attr("src", pokemon.imageUrlAnimated);
       let body = $('<div class="card-body" style="text-align: center;"></div>');
       let button = $(
@@ -149,27 +149,28 @@ let pokemonRepository = (function () {
 
 pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
-    // let color;
-    // if (pokemon.types.includes("fire")) {
-    //   color = '<span style="color: red;"> ';
-    // } else if (pokemon.types.includes("water")) {
-    //   color = '<span style="color: blue;"> ';
-    // } else if (pokemon.types.includes("speed")) {
-    //   color = '<span style="color: orange;"> ';
-    // } else if (pokemon.types.includes("flying")) {
-    //   color = '<span style="color: lightblue;"> ';
-    // } else if (pokemon.types.includes("grass")) {
-    //   color = '<span style="color: green;"> ';
-    // }
-
-    // let size = "";
-    // if (pokemon.height > 15) {
-    //   size = "This Is A Tall Pokemon";
-    // } else if (pokemon.height <= 10) {
-    //   size = "This Is A Short Pokemon";
-    // } else {
-    //   size = "This Is An Average Pokemon";
-    // }
     pokemonRepository.addListItem(pokemon);
   });
 });
+
+function search() {
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  // li = ul.getElementsByTagName("");
+  li = ul.querySelectorAll(".card");
+  console.log(li)
+  // console.log(li[0].querySelector(".card-body").querySelector(".card-title"));
+  for (i = 0; i < li.length; i++) {
+    // a = li[i].getElementsByTagName("a")[0];
+    a = li[i].querySelector(".card-body").querySelector(".card-title");
+    console.log(a.innerText);
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
